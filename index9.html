@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>v-else-if    key    v-show</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="counter += 1">Add 1</button>
+        <p>button 被点击了 {{ counter }} 次.</p>
+
+        <!-- v-on 还可以接收一个需要调用的方法名称。 -->
+        <button @click="greet">Greet</button>
+        <br>
+        <!-- 同时可以在方法中传入参数 -->
+        <button @click="greet1('hello 123')">Greet1</button>
+        <br>
+        <!-- 传入event，`event` 是原生 DOM 事件 -->
+        <button @click="greet2('hello 123', $event)">Greet2</button>
+        <br>
+        <button @dblclick="doubleClick">双击</button>
+        <br>
+        <!-- 除了直接绑定到一个方法，也可以在内联 JavaScript 语句中调用方法： -->
+        <button @click="say('hi')">Say hi</button>
+        <button @click="say('what')">Say what</button>
+        <br>
+        <!-- 有时也需要在内联语句处理器中访问原始的 DOM 事件。可以用特殊变量 $event 把它传入方法： -->
+        <button @click="warn('Form cannot be submitted yet.', $event)">
+            Submit
+        </button>
+
+        <!-- TODO: 事件修饰符 -->
+    </div>
+
+
+
+    <script type="text/javascript">
+        var vm=new Vue({
+            el:"#app",
+            data:{
+                counter : 0,
+                name: "Michael"
+            },
+            methods : {
+                greet : function () {
+                    alert("Hello Vue!")
+                    // 可以在方法中调用data中的属性
+                    alert("Hello " + this.name + "!")
+                },
+                greet1 : function (message) {
+                    alert(message)
+                },
+                greet2 : function (message, event) {
+                    alert(message)
+                    console.log(event)
+                },
+                doubleClick : function(){
+                    alert("触发双击！")
+                },
+                say : function(message){
+                    alert(message)
+                },
+                warn : function(message, event){
+                    // 现在我们可以访问原生事件对象
+                    if (event) {
+                    event.preventDefault()
+                    }
+                    alert(message)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

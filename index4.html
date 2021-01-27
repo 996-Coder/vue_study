@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>指令</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id=app>
+        <!-- 指令的职责是，当表达式的值改变时，将其产生的连带影响，响应式地作用于 DOM。 -->
+        <!-- v-if 根据值是否为true来选择是否渲染该元素 -->
+        <!-- 这里，v-if 指令将根据表达式 seen 的值的真假来插入/移除 <p> 元素。 -->
+        <p v-if="seen">You can see me now!</p>
+        <!-- 在这里 href 是参数，告知 v-bind 指令将该元素的 href attribute 与表达式 url 的值绑定。 -->
+        <a v-bind:href="url">鏈接</a>
+
+        <!-- v-on: 可以缩写为 @ -->
+        <!-- v-bind: 可以缩写为 : -->
+        <div @click="click1">
+            <!-- 此处如果沒有.stop，那么点击click2时，会同时触发click1 -->
+            <!-- @click.stop 执行完这个点击事件之后就停下来，不去触发父级元素的点击事件 -->
+            <div @click.stop="click2">
+                click me
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                seen: false,
+                url: "https://www.bing.com"
+            },
+            methods: {
+                click1:function () {
+                    console.log('click1')
+                },
+                click2:function () {
+                    console.log('click2')
+                }
+            }
+        })
+
+        setTimeout(function () {
+            vm.$data.seen = true
+        }, 3000)
+    </script>
+</body>
+
+</html>

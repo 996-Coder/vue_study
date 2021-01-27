@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <!-- 通过使用 v-once 指令，你也能执行一次性地插值，当数据改变时，插值处的内容不会更新。 -->
+    <div id="app" v-once>一次性插值，这个将不会改变: {{ message }}</div>
+
+    <div id="app2">
+        <!-- <p>使用双大括号插值: &lt;span style="color:red"&gt;这一行应该是红色&lt;/span&gt;</p> -->
+        <p>使用双大括号插值: {{ rawHtml }}</p>
+        <!-- <p><span style="color:red">这一行应该是红色</span></p> -->
+        <p v-html="rawHtml">使用v-html指令插值:</p>
+        <!-- 双花括号语法不能作用在 HTML attribute 上，遇到这种情况应该使用 v-bind 指令： -->
+        <!-- class 属性大多数时候用于指向样式表中的类（class）。不过，也可以利用它通过 JavaScript 来改变带有指定 class 的 HTML 元素。 -->
+        <!-- 此处通过v-bind指令为这个p标签绑定了一个class属性，并为class属性绑定了一个变量color，当修改color变量的值时，这个p标签的class属性会跟着动态变化 -->
+        <p v-bind:class="color">红黄蓝</p>
+        <!-- 对于所有的数据绑定，Vue.js 都提供了完全的 JavaScript 表达式支持。只支持js表达式，不支持语句！ -->
+        <!-- 算术运算 -->
+        <p>{{number + 1}}</p>
+        <!-- 三目运算符 -->
+        <p>{{ ok ? 'YES' : 'NO' }}</p>
+        <!-- 复杂的函数 -->
+        <p>{{ message.split('').reverse().join('') }}</p>
+        <!-- TODO:  -->
+        <!-- <div v-bind:id="'list-' + id"></div> -->
+    </div>
+
+
+
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data:{
+                message : 'hi vue'
+            }
+        })
+        // 由于使用了v-once指令，所以下面修改message的值将不起作用
+        app.message = 'HI VUE'
+
+
+        var app2 = new Vue({
+            el: '#app2',
+            data:{
+                rawHtml : '<span style="color:red">这一行应该是红色</span>',
+                color: 'green',
+                number: 10,
+                ok: true,
+                message: 'Hello Vue!'
+
+            }
+        })
+
+        setTimeout(function(){
+            app2.color = 'yellow'
+        }, 3000)
+
+        setTimeout(function(){
+            app2.color = 'red'
+        }, 6000)
+    </script>
+
+    <style type="text/css">
+        .red{color:red;font-size: 50px;}
+        .yellow{color:yellow;font-size: 60px;}
+        .green{color: green;font-size: 70px;}
+    </style>
+</body>
+</html>

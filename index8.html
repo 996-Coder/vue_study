@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>v-else-if    key    v-show</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 遍历数组 -->
+        <ul>
+            <li v-for="item in items">
+                {{item.message}}
+            </li>
+        </ul>
+        <!-- 在 v-for 块中，我们可以访问所有父作用域的 property。v-for 还支持一个可选的第二个参数，即当前项的索引。 -->
+        <ul>
+            <li v-for="(item, index) in items">
+                {{index}}  {{item.message}}
+            </li>
+        </ul>
+        <!-- 使用v-for时提供key attribute,给 Vue 一个提示，以便它能跟踪每个节点的身份，从而重用和重新排序现有元素 -->
+        <ul>
+            <li v-for="(item, index) in items" :key="index">
+                {{index}}  {{item.message}}
+            </li>
+        </ul>
+
+        <!-- 遍历对象 -->
+        <!-- 在遍历对象时，会按 Object.keys() 的结果遍历，但是不能保证它的结果在不同的 JavaScript 引擎下都一致。 -->
+        <!-- 使用v-for遍历对象的所有属性 -->
+        <ul>
+            <li v-for="value in object">
+                {{ value }}
+            </li>
+        </ul>
+        <!-- 也可以提供第二个的参数为 property 名称 (也就是键名)： -->
+        <ul>
+            <li v-for="(value,key) in object">
+                {{key}} : {{ value }}
+            </li>
+        </ul>
+        <!-- 还可以用第三个参数作为索引： -->
+        <ul>
+            <li v-for="(value,key,index) in object">
+                {{index}} : {{key}} : {{ value }}
+            </li>
+        </ul>
+
+        <ul>
+            <li v-for="(value,key,index) in object" :key=key>
+                {{index}} : {{key}} : {{ value }}
+            </li>
+        </ul>
+        <!-- 建议尽可能在使用 v-for 时提供 key attribute，除非遍历输出的 DOM 内容非常简单，或者是刻意依赖默认行为以获取性能上的提升。 -->
+    </div>
+
+
+
+    <script type="text/javascript">
+        var vm=new Vue({
+            el:"#app",
+            data:{
+                items :[
+                    {message : 'Hello'},
+                    {message : "Vue"},
+                    {message : "!"}
+                ],
+                object : {
+                    name : 'zs',
+                    age : 18,
+                    sex : 'man'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

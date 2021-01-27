@@ -1,0 +1,48 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>hello vue</title>
+    <!-- 通过将vue.js 下载到项目中，并用<script>标签引入的方式来使用vue -->
+    <!-- <script src="vue.js" type="text/javaScript" charset="utf-8"></script> -->
+    <!-- 通过cdn的方式引入vue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 在视图中定义变量 -->
+        {{ message }}
+    </div>
+
+    <div id="app-2">
+        <!-- v-bind attribute 被称为指令。指令带有前缀 v-，以表示它们是 Vue 提供的特殊 attribute。 -->
+        <!-- 将这个元素节点的 title attribute 和 Vue 实例的 message property 保持一致 -->
+        <span v-bind:title="message">
+            鼠标悬停几秒查看此处动态绑定的信息！
+        </span>
+    </div>
+
+
+    <script type="text/javascript">
+        // var app = new Vue({}) 通過new 关键字来创建 Vue实例
+        var app = new Vue({
+            // el: element 通过选择器声明是哪个元素
+            el: '#app',
+            // data: 在视图中声明了哪些变量，就需要在data中进行注册，并赋初值
+            data: {
+                message: "Hello Vue!"
+            }
+        });
+
+        var app2 = new Vue({
+        el: '#app-2',
+        data: {
+            message : '页面加载于' + new Date().toLocaleString()
+        }
+    })
+    </script>
+</body>
+
+
+</html>
